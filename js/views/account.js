@@ -40,11 +40,13 @@ define(function(require) {
 		events: {
 			'click .account-toggle-collapse': 'toggleCollapse',
 			'click .app-navigation-entry-utils-menu-button button': 'toggleMenu',
-			'click @ui.deleteButton': 'onDelete'
+			'click @ui.deleteButton': 'onDelete',
+			'click @ui.settingsButton': 'showAccountSettings'
 		},
 		ui: {
 			'menu': 'div.app-navigation-entry-menu',
-			'deleteButton': 'button[class^="icon-delete"]'
+			'deleteButton': 'button[class^="icon-delete"]',
+			'settingsButton': 'button[class^="icon-rename"]'
 		},
 		// 'active' is needed to show the dotdotdot menu
 		className: 'navigation-account',
@@ -106,7 +108,11 @@ define(function(require) {
 					this.toggleMenuClass();
 				}
 			});
-		}
+		},
+		showAccountSettings: function () {
+			var account = this.model;
+			Radio.navigation.trigger('accountsettings', account.get('accountId'));
 
+		}
 	});
 });
