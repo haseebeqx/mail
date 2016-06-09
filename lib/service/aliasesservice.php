@@ -30,60 +30,33 @@ class AliasesService {
 	private $mapper;
 
 	/**
-	 * Cache accounts for multiple calls to 'findByUserId'
-	 *
-	 * @var IAccount[]
-	 */
-	private $aliases;
-
-	/** @var IL10N */
-	private $l10n;
-
-	/**
 	 * @param AliasMapper $mapper
 	 */
-	public function __construct(AliasMapper $mapper, IL10N $l10n) {
+	public function __construct(AliasMapper $mapper) {
 		$this->mapper = $mapper;
-		$this->l10n = $l10n;
 	}
 
 	/**
 	 * @param $currentUserId
 	 * @param $accountId
-	 * @return IAccount
 	 */
 	public function findAll($currentUserId, $accountId) {
-		if ($this->accounts !== null) {
-			foreach ($this->accounts as $account) {
-				if ($account->getId() === $accountId) {
-					return $account;
-				}
-			}
-			throw new Exception("Invalid account id <$accountId>");
-		}
-
-		if ((int)$accountId === UnifiedAccount::ID) {
-			return $this->buildUnifiedAccount($currentUserId);
-		}
-		return new Account($this->mapper->find($currentUserId, $accountId));
+		// fetch all aliases
 	}
 
 	/**
-	 * @param int $accountId
+	 * @param $currentUserId
+	 * @param $accountId
 	 */
 	public function delete($currentUserId, $accountId) {
-		if ((int)$accountId === UnifiedAccount::ID) {
-			return;
-		}
-		$mailAccount = $this->mapper->find($currentUserId, $accountId);
-		$this->mapper->delete($mailAccount);
+		// delete an alias
 	}
 
 	/**
-	 * @param $newAccount
-	 * @return \OCA\Mail\Db\MailAccount
+	 * @param $newAlias
+	 * @return \OCA\Mail\Db\Alias
 	 */
-	public function save($newAccount) {
-		return $this->mapper->save($newAlias);
+	public function save($newAlias) {
+		// new alias
 	}
 }
