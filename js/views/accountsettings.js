@@ -21,17 +21,45 @@ define(function(require) {
 
 	return Marionette.ItemView.extend({
 		template: Handlebars.compile(AccountSettingsTemplate),
+		currentAccount: null,
 		ui: {
-			// TODO
+			'form': 'form',
+			'alias': 'input[name="alias"]',
+			'submitButton': 'input[type=submit]'
 		},
 		events: {
-			// events add, update and remove alias
+			'click @ui.submitButton': 'onSubmit',
+			'submit @ui.form': 'onSubmit'
 		},
 		initialize: function(options) {
-			// TODO
+			this.currentAccount = require('state').currentAccount;
+
 		},
 		onShow: function() {
             // TODO
+		},
+		onSubmit: function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var alias = this.ui.alias.val();
+			var url = OC.generateUrl('/apps/mail/accounts/{id}/aliases', {
+				id: this.currentAccount.get('id')
+			});
+			var data = {
+				type: 'POST',
+				success: function(data) {
+
+				},
+				error: function(xhr) {
+
+				},
+				data: {
+					alias: alias
+				}
+			};
+			$.ajax(url, data);
+
 		}
 	});
 });

@@ -14,6 +14,7 @@ namespace OCA\Mail\Db;
 
 use OCP\AppFramework\Db\Mapper;
 use OCP\IDb;
+use PhpParser\Node\Stmt\TraitUseAdaptation\Alias;
 
 class AliasMapper extends Mapper {
 
@@ -27,5 +28,19 @@ class AliasMapper extends Mapper {
 	/*
 	 *  TODO: Add function for CRUD by user id and email
 	 */
+
+	/**
+	 * Saves an Alias into the database
+	 * @param Alias $alias
+	 * @return Alias
+	 */
+	public function save(Alias $alias) {
+		if (is_null($alias->getId())) {
+			return $this->insert($alias);
+		} else {
+			$this->update($alias);
+			return $alias;
+		}
+	}
 
 }

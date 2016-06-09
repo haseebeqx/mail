@@ -62,5 +62,6 @@ $app->registerRoutes($this,
 			'accounts' => ['url' => '/accounts'],
 			'folders' => ['url' => '/accounts/{accountId}/folders'],
 			'messages' => ['url' => '/accounts/{accountId}/folders/{folderId}/messages'],
+			'aliases' => ['url' => '/accounts/{accountId}/aliases'],
 		]
 	]);
