@@ -20,9 +20,8 @@
 namespace OCA\Mail\Service;
 
 use Exception;
-use OCA\Mail\Account;
+use OCA\Mail\Db\Alias;
 use OCA\Mail\Db\AliasMapper;
-use OCP\IL10N;
 
 class AliasesService {
 
@@ -36,27 +35,26 @@ class AliasesService {
 		$this->mapper = $mapper;
 	}
 
-	/**
-	 * @param $currentUserId
-	 * @param $accountId
-	 */
-	public function findAll($currentUserId, $accountId) {
-		// fetch all aliases
+	public function findAll($accountId) {
+		return $this->mapper->findAll($accountId);
 	}
 
-	/**
-	 * @param $currentUserId
-	 * @param $accountId
-	 */
-	public function delete($currentUserId, $accountId) {
-		// delete an alias
+	public function create($accountId, $alias_name) {
+		$alias = new Alias();
+		$alias->setAccountId($accountId);
+		$alias->setAlias($alias_name);
+		return $this->mapper->insert($alias);
 	}
 
-	/**
-	 * @param $newAlias
-	 * @return \OCA\Mail\Db\Alias
-	 */
-	public function save($newAlias) {
-		// new alias
+	public function delete($id) {
+		$alias = $this->mapper->find($id);
+		$this->mapper->delete($alias);
+		return $alias;
+	}
+
+	public function update($id, $alias_name) {
+		$alias = $this->mapper->find($id);
+		$alias->setAlias($alias_name);
+		return $this->mapper->update($alias);
 	}
 }

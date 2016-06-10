@@ -168,17 +168,11 @@
 				<length>4</length>
 			</field>
 			<field>
-				<name>user_id</name>
-				<type>text</type>
+				<name>account_id</name>
+				<type>integer</type>
 				<default></default>
 				<notnull>true</notnull>
-				<length>64</length>
-			</field>
-			<field>
-				<name>email</name>
-				<type>text</type>
-				<notnull>true</notnull>
-				<length>255</length>
+				<length>4</length>
 			</field>
 			<field>
 				<name>alias</name>

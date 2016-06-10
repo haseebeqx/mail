@@ -15,17 +15,14 @@ namespace OCA\Mail\Db;
 use OCP\AppFramework\Db\Entity;
 
 /**
- * @method null setUserId(string $userId)
- * @method string getUserId()
- * @method null setEmail(string $email)
- * @method string getEmail()
+ * @method null setAccountId(string $accountId)
+ * @method string getAccountId()
  * @method null setAlias(string $alias)
  * @method string getAlias()
  */
 class Alias extends Entity {
 
-	protected $userId;
-	protected $email;
+	protected $accountId;
 	protected $alias;
 
 }

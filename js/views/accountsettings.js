@@ -55,6 +55,7 @@ define(function(require) {
 
 				},
 				data: {
+					accountId: this.currentAccount.get('id'),
 					alias: alias
 				}
 			};

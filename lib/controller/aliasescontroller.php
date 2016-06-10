@@ -55,7 +55,7 @@ class AliasesController extends Controller {
 	 * @param int $accountId
 	 */
 	public function index($accountId) {
-		// return all aliases
+		//return new DataResponse($this->aliasService->findAll($this->accountId));
 	}
 
 	/**
@@ -73,8 +73,8 @@ class AliasesController extends Controller {
 	 * @NoCSRFRequired
 	 * @param int $accountId
 	 */
-	public function update() {
-		//update an alias
+	public function update($id, $alias) {
+		return $this->aliasService->update($id, $alias);
 	}
 
 	/**
@@ -82,8 +82,8 @@ class AliasesController extends Controller {
 	 * @NoCSRFRequired
 	 * @param int $accountId
 	 */
-	public function destroy() {
-		// remove aliases
+	public function destroy($id) {
+		return $this->aliasService->delete($id);
 	}
 
 	/**
@@ -91,8 +91,7 @@ class AliasesController extends Controller {
 	 * @NoCSRFRequired
 	 * @param int $accountId
 	 */
-	public function create($accountId) {
-		// create an alias
-		
+	public function create($accountId, $alias) {
+		return $this->aliasService->create($accountId, $alias);
 	}
 }
