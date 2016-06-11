@@ -22,7 +22,7 @@ use OCP\AppFramework\Db\Entity;
  */
 class Alias extends Entity {
 
-	protected $accountId;
-	protected $alias;
+	public $accountId;
+	public $alias;
 
 }

@@ -54,7 +54,7 @@ class AliasesController extends Controller {
 	 * @return Alias[]
 	 */
 	public function index($accountId) {
-		return $this->aliasService->findAll(accountId);
+		return $this->aliasService->findAll($accountId);
 	}
 
 	/**

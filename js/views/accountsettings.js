@@ -35,6 +35,24 @@ define(function(require) {
 			this.currentAccount = require('state').currentAccount;
 
 		},
+		onShow: function () {
+			var url = OC.generateUrl('/apps/mail/accounts/{id}/aliases', {
+				id: this.currentAccount.get('id')
+			});
+			var data = {
+				type: 'GET',
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(xhr) {
+
+				},
+				data: {
+					accountId: this.currentAccount.get('id')
+				}
+			};
+			$.ajax(url, data);
+		},
 		onSubmit: function(e) {
 			e.preventDefault();
 			e.stopPropagation();
