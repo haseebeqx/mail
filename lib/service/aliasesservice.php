@@ -22,6 +22,8 @@ namespace OCA\Mail\Service;
 use Exception;
 use OCA\Mail\Db\Alias;
 use OCA\Mail\Db\AliasMapper;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 class AliasesService {
 
@@ -35,26 +37,70 @@ class AliasesService {
 		$this->mapper = $mapper;
 	}
 
+	/**
+	 * @param $e
+	 * @throws NotFoundException
+	 */
+	private function handleException ($e) {
+		if ($e instanceof DoesNotExistException ||
+			$e instanceof MultipleObjectsReturnedException) {
+			throw new NotFoundException($e->getMessage());
+		} else {
+			throw $e;
+		}
+	}
+
+	/**
+	 * @param int $accountId
+	 * @return String Alias
+	 */
 	public function findAll($accountId) {
 		return $this->mapper->findAll($accountId);
 	}
 
+	/**
+	 * @param int $accountId
+	 * @param String $alias_name
+	 * @return Alias[]
+	 */
 	public function create($accountId, $alias_name) {
-		$alias = new Alias();
-		$alias->setAccountId($accountId);
-		$alias->setAlias($alias_name);
-		return $this->mapper->insert($alias);
+		try {
+			$alias = new Alias();
+			$alias->setAccountId($accountId);
+			$alias->setAlias($alias_name);
+			return $this->mapper->insert($alias);
+		} catch(Exception $e){
+			$this->handleException($e);
+		}
 	}
 
+	/**
+	 * @param int $id
+	 * @return \OCA\Mail\Db\Alias[]
+	 */
 	public function delete($id) {
-		$alias = $this->mapper->find($id);
-		$this->mapper->delete($alias);
-		return $alias;
+		try {
+			$alias = $this->mapper->find($id);
+			$this->mapper->delete($alias);
+			return $alias;
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
 	}
 
+	/**
+	 * @param int $id
+	 * @param string $alias_name
+	 * @return Alias[]
+	 */
 	public function update($id, $alias_name) {
-		$alias = $this->mapper->find($id);
-		$alias->setAlias($alias_name);
-		return $this->mapper->update($alias);
+		try {
+			$alias = $this->mapper->find($id);
+			$alias->setAlias($alias_name);
+			return $this->mapper->update($alias);
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
+
 	}
 }

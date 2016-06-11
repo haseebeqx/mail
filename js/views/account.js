@@ -109,7 +109,7 @@ define(function(require) {
 				}
 			});
 		},
-		showAccountSettings: function (e) {
+		showAccountSettings: function(e) {
 			var account = this.model;
 			this.toggleMenu(e);
 			Radio.navigation.trigger('accountsettings', account.get('accountId'));

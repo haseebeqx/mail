@@ -24,15 +24,19 @@ class AliasMapper extends Mapper {
 		parent::__construct($db, 'mail_aliases');
 	}
 
-	/*
-	 *  TODO: Add function for CRUD by user id and email
+	/**
+	 * @param int $id
+	 * @return Alias[]
 	 */
-
 	public function find($id) {
 		$sql = 'SELECT * FROM ' . $this->getTableName() . ' WHERE id = ?';
 		return $this->findEntity($sql, [$id]);
 	}
 
+	/**
+	 * @param int $accountId
+	 * @return Alias
+	 */
 	public function findAll($accountId) {
 		$sql = 'SELECT * FROM ' . $this->getTableName() . ' WHERE account_id = ?';
 		return $this->findEntities($sql, [$accountId]);

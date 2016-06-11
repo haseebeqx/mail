@@ -20,10 +20,10 @@
 
 namespace OCA\Mail\Controller;
 
+use OCA\Mail\Db\Alias;
 use OCP\IRequest;
 use OCA\Mail\Service\AliasesService;
 use OCP\AppFramework\Controller;
-use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http;
 
@@ -40,22 +40,21 @@ class AliasesController extends Controller {
 	/**
 	 * @param string $appName
 	 * @param IRequest $request
-	 * @param AliasesService $AliasService
-	 * @param $UserId
+	 * @param AliasesService $aliasesService
 	 */
-	public function __construct($appName, IRequest $request, AliasesService $aliasesService, $UserId) {
+	public function __construct($appName, IRequest $request, AliasesService $aliasesService) {
 		parent::__construct($appName, $request);
 		$this->aliasService = $aliasesService;
-		$this->currentUserId = $UserId;
 	}
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @param int $accountId
+	 * @return Alias[]
 	 */
 	public function index($accountId) {
-		//return new DataResponse($this->aliasService->findAll($this->accountId));
+		return $this->aliasService->findAll(accountId);
 	}
 
 	/**
@@ -71,7 +70,9 @@ class AliasesController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @param int $accountId
+	 * @param int $id
+	 * @param string $alias
+	 * @return Alias[]
 	 */
 	public function update($id, $alias) {
 		return $this->aliasService->update($id, $alias);
@@ -80,7 +81,8 @@ class AliasesController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @param int $accountId
+	 * @param int $id
+	 * @return Alias[]
 	 */
 	public function destroy($id) {
 		return $this->aliasService->delete($id);
@@ -90,6 +92,8 @@ class AliasesController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @param int $accountId
+	 * @param string $alias
+	 * @return Alias[]
 	 */
 	public function create($accountId, $alias) {
 		return $this->aliasService->create($accountId, $alias);

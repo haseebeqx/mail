@@ -186,7 +186,7 @@ define(function(require) {
 				this.content.show(new LoadingView());
 			}
 		},
-		showAccountSettings: function () {
+		showAccountSettings: function() {
 			if (this.activeContent !== ContentType.ACCOUNT_SETTINGS) {
 				this.activeContent = ContentType.ACCOUNT_SETTINGS;
 

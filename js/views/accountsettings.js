@@ -35,9 +35,6 @@ define(function(require) {
 			this.currentAccount = require('state').currentAccount;
 
 		},
-		onShow: function() {
-            // TODO
-		},
 		onSubmit: function(e) {
 			e.preventDefault();
 			e.stopPropagation();
